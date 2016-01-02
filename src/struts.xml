@@ -1,0 +1,62 @@
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 改完配置 不用重新启动服务器 -->
+	<constant name="struts.configuration.xml.reload" value="false" />  
+	
+	<package name="default" extends="struts-default" namespace="/">
+		<action name="hello">
+			<result>
+				/Hello.jsp
+			</result>
+		</action>
+		
+		<action name="addStuInfo" class="addStuInfoAction" >
+			<result name="success" type="redirectAction">
+				showStuInfo
+			</result>
+			<result name="input">
+				/AddStuInfo.jsp
+			</result>
+		</action>  
+		
+		<action name="showStuInfo" class="showStuInfoAction">
+			<result name="success">/ShowStuInfo.jsp</result>
+	    </action>
+	    
+	    <action name="findStuInfo" class="findStuInfoAction" method="execute">
+			<result name="success">
+				/UpdateStuInfo.jsp
+			</result>
+			<result name="input">
+				/FindStuInfo.jsp
+			</result>
+	    </action>
+	    
+	    <action name="findStuInfoDel" class="findStuInfoAction" method="executeDelete">
+			<result name="success" type="chain">
+				deleteStuInfo
+			</result>
+			<result name="input">
+				/DeleteStuInfo.jsp
+			</result>
+	    </action>
+	    
+	    <action name="updateStuInfo" class="updateStuInfoAction">
+			<result name="success" type="chain">
+				showStuInfo
+			</result>
+			<result name="input">
+				/UpdateStuInfo.jsp
+			</result>
+	    </action>
+	    
+	    <action name="deleteStuInfo" class="deleteStuInfoAction">
+			<result name="success" type="chain">
+				showStuInfo
+			</result>
+	    </action>
+	    
+    </package>
+</struts>
